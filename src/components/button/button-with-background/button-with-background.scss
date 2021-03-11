@@ -1,0 +1,61 @@
+@import '../../../variables.scss';
+.background-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    font-family: $main-font;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1rem;
+    color: $bright-font-color;
+    background: $background-linear-gradient;
+    box-shadow: 0px 0px 24px $accent-shadow-color;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: $animation-speed $animation-timing;
+}
+
+.background-btn:hover,
+.background-btn:focus {
+    background: $accent-background-color;
+}
+
+.background-btn--fit-parent {
+    width: 100%;
+}
+
+.background-btn--blank {
+    background: none;
+    border: 1px solid $blank-background-color;
+    box-shadow: none;
+}
+
+.background-btn--blank:hover,
+.background-btn--blank:focus {
+    color: $main-font-color;
+    background: $blank-background-color;
+}
+
+.background-btn--disabled:active,
+.background-btn--disabled:focus,
+.background-btn--disabled:hover,
+.background-btn--disabled {
+    color: $bright-font-color;
+    background: $disabled-background-color;
+    box-shadow: none;
+    filter: none;
+    cursor: default;
+    border: none;
+    transform: none;
+    will-change: none;
+}
+
+@media (min-width: 768px) {
+    .background-btn {
+        padding: 16px 32px;
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+}

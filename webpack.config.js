@@ -98,7 +98,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.(ttf)$/,
+        test: /\.(woff2)$/,
         type: 'asset/resource'
       }
     ]

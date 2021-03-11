@@ -1,11 +1,8 @@
-* {
-    font-family: 'Roboto Flex';
-}
-
+@import './variables.scss';
 #root {
-    display: flex;
-    flex-direction: column;
     min-height: 100vh;
+    background: $background-linear-gradient;
+    background-size: cover;
 }
 
 .visually-hidden {

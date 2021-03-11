@@ -3,4 +3,9 @@ button {
     display: block;
     cursor: pointer;
     touch-action: manipulation;
+    will-change: transform;
+}
+
+button:active {
+    transform: scale(0.95);
 }

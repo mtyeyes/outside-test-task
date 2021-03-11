@@ -1,0 +1,27 @@
+@font-face {
+    font-weight: normal;
+    font-family: "icomoon";
+    font-style: normal;
+    font-display: swap;
+    src: url("../../resources/fonts/icomoon.woff2") format("woff2");
+}
+
+[class^="icon-"]::before, [class*=" icon-"]::before {
+    font-family: "icomoon";
+    font-style: normal;
+    font-weight: normal;
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    text-align: center;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1em;
+    speak: never;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-close:before {
+    content: "\e900";
+}

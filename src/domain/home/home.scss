@@ -1,0 +1,16 @@
+@import '../../variables.scss';
+.modal-toggler__wrapper {
+    height: 100vh;
+    display: grid;
+    place-items: center;
+}
+
+.modal-toggler__btn {
+    filter: drop-shadow(0px 0px 44px $blank-shadow-color);
+}
+
+.modal-toggler__btn:active,
+.modal-toggler__btn:hover,
+.modal-toggler__btn:focus {
+    filter: none;
+}

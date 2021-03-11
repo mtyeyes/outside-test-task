@@ -1,0 +1,29 @@
+@import '../../../variables.scss';
+.icon-btn {
+    color: $accent-background-color;
+    transition: $animation-speed $animation-timing;
+}
+
+.icon-btn:focus,
+.icon-btn:hover {
+    color: $accent-bleached-color;
+}
+
+.icon-btn {
+    padding: 0.75rem;
+    width: 0.75rem;
+    height: 0.75rem;
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .icon-btn {
+        padding: 1.125rem;
+        width: 1.125rem;
+        height: 1.125rem;
+        font-size: 1.125rem;
+        line-height: 1.125rem;
+    }
+}
+
