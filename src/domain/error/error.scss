@@ -1,0 +1,16 @@
+@import '../../variables.scss';
+.error__wrapper {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    background: $background-linear-gradient;
+}
+
+.error__title {
+    font-size: clamp(5rem, 8vw, 10rem);
+    letter-spacing: 1.5rem;
+    font-family: $main-font;
+    color: $bright-font-color;
+    text-align: center;
+}
