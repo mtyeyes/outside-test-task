@@ -1,7 +1,11 @@
 button {
-    all: unset;
+    padding: 0;
+    border: none;
+    outline: none;
+    font: inherit;
+    color: inherit;
+    background: none;
     display: block;
-    cursor: pointer;
     touch-action: manipulation;
     will-change: transform;
 }

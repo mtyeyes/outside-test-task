@@ -43,3 +43,9 @@ a {
 *, *:focus, *:hover {
     outline: none;
 }
+
+input,
+button,
+label {
+    cursor: url('./resources/images/custom-cursor.svg') 8 2,auto;
+}
