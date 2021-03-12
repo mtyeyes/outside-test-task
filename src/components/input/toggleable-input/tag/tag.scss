@@ -1,0 +1,30 @@
+@import '../../../../variables.scss';
+.tag__label {
+    display: inline-block;
+    padding: 0.375rem 0.75rem;
+    margin: 0.375rem;
+    font-family: $main-font;
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    color: $main-font-color;
+    background: #EEF0F2;
+    border-radius: 3.125rem;
+}
+
+.tag:focus + .tag__label,
+.tag__label:hover {
+    background-color: $border-color;
+}
+
+.tag + .tag__label:active,
+.tag:checked + .tag__label {
+    background: $background-linear-gradient;
+    color: $bright-font-color;
+}
+
+.tag:focus-visible:checked + .tag__label,
+.tag:checked + .tag__label:hover {
+    background: $accent-bleached-color;
+    color: $bright-font-color;
+}

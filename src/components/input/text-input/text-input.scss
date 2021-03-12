@@ -1,0 +1,71 @@
+@import '../../../variables.scss';
+.text-input__wrapper {
+    position: relative;
+}
+
+.text-input__input,
+.text-input__label {
+    display: block;
+    font-family: $main-font;
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    color: $main-font-color;
+}
+
+.text-input__label {
+    font-weight: 500;
+}
+
+.text-input__input {
+    position: relative;
+    padding: 0.5rem;
+    margin-bottom: 0.85rem;
+    font-weight: 400;
+    border: 1px solid $border-color;
+    border-radius: 0.188rem;
+    box-sizing: border-box;
+    transition: $animation-speed $animation-timing;
+}
+
+.text-input__input::placeholder {
+    color: $disabled-color;
+}
+
+.text-input__label:hover + .text-input__input,
+.text-input__input:hover,
+.text-input__input:focus {
+    border-color: $main-font-color;
+}
+
+.text-input__wrapper .text-input__input:invalid {
+    border-color: $attention-color;
+}
+
+.text-input__input + .text-input__is-required-alert {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    visibility: hidden;
+    max-height: 0;
+    width: 100%;
+    margin: 0;
+    font-family: $main-font;
+    font-weight: 400;
+    font-size: 0.625rem;
+    line-height: 0.75rem;
+    color: $attention-color;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    transition: $animation-speed $animation-timing;
+}
+
+.text-input__input:invalid + .text-input__is-required-alert {
+    visibility: visible;
+    max-height: 0.75rem;
+}
+
+.text-input__wrapper .text-input__input:disabled {
+    border-color: $disabled-color;
+    color: $disabled-color;
+}

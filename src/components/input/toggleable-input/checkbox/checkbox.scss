@@ -1,0 +1,79 @@
+@import '../../../../variables.scss';
+.checkbox__label {
+    display: block;
+    position: relative;
+    padding: 0.5rem 0;
+    margin: 0.5rem 0;
+    font-family: $main-font;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5rem;
+    text-indent: 2rem;
+    color: $main-font-color;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    transition: $animation-speed $animation-timing;
+}
+
+.checkbox__label::before {
+    position: absolute;
+    content: '';
+    top: 50%;
+    left: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    background: $blank-background-color;
+    border: 1px solid $border-color;
+    box-sizing: border-box;
+    border-radius: 0.375rem;
+    transform: translateY(-50%);
+    transition: $animation-speed $animation-timing
+}
+
+.checkbox:focus + .checkbox__label::before,
+.checkbox__label:hover::before {
+    border-color: $main-font-color;
+}
+
+.checkbox + .checkbox__label:active::before,
+.checkbox:checked + .checkbox__label::before {
+    background: $background-linear-gradient;
+    border: none;
+}
+
+.checkbox:focus-visible:checked + .checkbox__label::before,
+.checkbox:checked + .checkbox__label:hover::before {
+    background: $accent-bleached-color;
+}
+
+.checkbox:focus:disabled + .checkbox__label::before,
+.checkbox:disabled + .checkbox__label:hover::before,
+.checkbox:disabled + .checkbox__label::before {
+    background: $disabled-color;
+    border: none;
+    cursor: default;
+}
+
+.checkbox + .checkbox__label .checkbox__icon {
+    display: none;
+}
+
+.checkbox + .checkbox__label:active .checkbox__icon,
+.checkbox:checked + .checkbox__label .checkbox__icon {
+    display: block;
+}
+
+.checkbox__label .checkbox__icon {
+    position: absolute;
+    top: 50%;
+    left: 0.15rem;
+    text-indent: 0;
+    width: 0.75rem;
+    height: 0.75rem;
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+    text-align: center;
+    color: $bright-font-color;
+    transform: translateY(-50%);
+}

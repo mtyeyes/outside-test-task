@@ -8,7 +8,7 @@ type Props = {
   className?: string;
 }
 
-export type IconIds = 'close';
+export type IconIds = 'close' | 'checkmark';
 
 const Icon = ({iconId, className}: Props) => {
   const iconClassName = conditionalClassName({
