@@ -30,7 +30,7 @@ module.exports = {
   ],
   "rules": {
     "react/prop-types": 0,
-    "react/no-children-prop": false,
+    "react/no-children-prop": 0,
     "indent": [
       "error",
       2,

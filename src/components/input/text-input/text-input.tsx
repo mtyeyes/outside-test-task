@@ -4,7 +4,7 @@ import './text-input.scss';
 type Props = {
   value: string,
   valueType: ValueType,
-  applyChange: (inputValue: string) => void,
+  onChange: (inputValue: string) => void,
   inputId: string,
   isDisabled?: boolean,
   isRequired?: boolean
@@ -21,9 +21,9 @@ const getPattern = (valueType: ValueType) => {
   }
 };
 
-const TextInput = ({ value, valueType, placeholderText, inputId, applyChange, isDisabled = false, isRequired = false, children }: Props) => {
+const TextInput = ({ value, valueType, placeholderText, inputId, onChange, isDisabled = false, isRequired = false, children }: Props) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    applyChange(e.target.value);
+    onChange(e.target.value);
   };
 
   return (

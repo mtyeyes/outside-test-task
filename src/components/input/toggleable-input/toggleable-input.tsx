@@ -7,7 +7,7 @@ import conditionalClassName from '../../../utils/conditional-classname';
 export type Props = {
   type: 'checkbox' | 'radio'
   isChecked: boolean,
-  applyChange: (isToggled: boolean, inputId: string) => void,
+  onChange: (isToggled: boolean, inputId: string) => void,
   groupName: string,
   id: string,
   isDisabled?: boolean,
@@ -17,9 +17,9 @@ export type Props = {
   wrapperClassName?: string,
 }
 
-const ToggleableInput = ({ type, isChecked, applyChange, groupName, id, isDisabled, children, inputClassName, labelClassName }: Props) => {
+const ToggleableInput = ({ type, isChecked, onChange, groupName, id, isDisabled, children, inputClassName, labelClassName }: Props) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    applyChange(e.target.checked, id);
+    onChange(e.target.checked, id);
   };
 
   const inputClass = conditionalClassName({
