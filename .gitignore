@@ -5,7 +5,6 @@
 *.log
 *.sublime*
 dist/
-src/localUse/
 node_modules/
 npm-debug.*
 Thumbs.db
