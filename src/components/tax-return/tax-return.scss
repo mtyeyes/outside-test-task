@@ -35,6 +35,7 @@
 
 @media (min-width: $media-tablet-screen-width) {
     .tax-return__container {
+        position: relative;
         display: block;
         padding: 2rem;
         min-height: initial;
