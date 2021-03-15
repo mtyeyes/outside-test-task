@@ -15,11 +15,12 @@ const TwoToneText = ({ mainText, secondaryText, isHighlighted }: Props) => {
     conditionalClassNames: {
       'two-tone-text--highlighted': isHighlighted === true
     }
-  })
+  });
+
   return (
     <span className="two-tone-text two-tone-text--main-color">
       {mainText}
-      <span className="two-tone-text two-tone-text--secondary-color">
+      <span className={secondaryTextClass}>
         {secondaryText}
       </span>
     </span>

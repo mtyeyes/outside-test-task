@@ -19,7 +19,7 @@ const ModalScreenblock = ({ isOpen, closeModal }: Props) => {
     conditionalClassNames: {
       'modal-screenblock--show': isOpen
     }
-  })
+  });
 
   const closeModalByClick = (e: React.MouseEvent<HTMLDivElement>) => { if (e.target === screenblock.current) { closeModal() } };
   const closeModalByEsc = (e: EventKeyup) => { if (e.key === 'Escape') { closeModal() } };
@@ -33,7 +33,7 @@ const ModalScreenblock = ({ isOpen, closeModal }: Props) => {
     };
   }, [isOpen]);
 
-  return <div className={screenblockClass} ref={screenblock} role="button" onClick={closeModalByClick} />
+  return <div className={screenblockClass} ref={screenblock} role="button" onClick={closeModalByClick} />;
 };
 
 export default ModalScreenblock;

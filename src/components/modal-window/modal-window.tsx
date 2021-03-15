@@ -18,7 +18,8 @@ const ModalWindow = ({ isOpen, closeModal, children }: Props) => {
     conditionalClassNames: {
       'modal-window--open': isOpen
     }
-  })
+  });
+
   return (
     <>
       <ModalScreenblock isOpen={isOpen} closeModal={closeModal} />

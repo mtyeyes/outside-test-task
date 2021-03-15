@@ -17,8 +17,8 @@ const Button = ({ component, ...props }: Props) => {
   switch(component) {
     case 'link': return <Link {...props as ComponentProps<Link>} />;
     default: {
-      const {type ,...buttonProps} = {...props as ComponentProps<'button'>}
-      return <button type={type === undefined ? "button" : type} {...buttonProps} />;
+      const {type ,...buttonProps} = {...props as ComponentProps<'button'>};
+      return <button type={type === undefined ? 'button' : type} {...buttonProps} />;
     }
   }
 };

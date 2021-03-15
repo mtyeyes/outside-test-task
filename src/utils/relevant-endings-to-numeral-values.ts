@@ -7,7 +7,7 @@ const relevantEndingsToNumeralValues = ( amount: number, type: 'years' | 'rubles
   const lastDigitOfAmount = parseInt(`${amount}`[`${amount}`.length-1]);
   const endingsRelativeToAmountOfYears = [
     {
-      relevantNumbers: [1, 4, 5, 9, 10],
+      relevantNumbers: [1, 4, 5, 9, 0],
       ending: 'ый'
     },
     {
