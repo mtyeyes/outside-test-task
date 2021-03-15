@@ -1,0 +1,15 @@
+@import '../../variables.scss';
+.fieldset {
+    margin: 1rem 0 0;
+    padding: 0;
+    border: none;
+}
+
+.fieldset__legend {
+    margin-bottom: 0.5rem;
+    font-family: $main-font;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+    color: $main-font-color;
+}

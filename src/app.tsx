@@ -12,6 +12,7 @@ const App = () => {
       <Router basename={PATH}>
         <Switch>
           <Route exact path='/' component={ Home } />
+          <Route exact path='/tax-return' component={ Home } />
           <Route path='*' component={ Error }/>
         </Switch>
       </Router>

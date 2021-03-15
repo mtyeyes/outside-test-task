@@ -1,15 +1,15 @@
-import React, { FC, ComponentProps } from 'react';
+import React from 'react';
 import './icon-button.scss';
 
 import conditionalClassName from '../../../utils/conditional-classname';
-import Button from '../button';
+import Button, { Props as ButtonProps } from '../button';
 import Icon, { IconIds } from '../../icon/icon';
 
-type Props = {
+type Props = ButtonProps & {
   iconId: IconIds
 }
 
-const IconButton: FC<ComponentProps<'button'> & Props> = ({className, iconId, children, ...props}) => {
+const IconButton = ({className, iconId, children, ...props}: Props) => {
   const btnClassName = conditionalClassName({
     staticClassName: 'icon-btn',
     conditionalClassNames: {
@@ -18,7 +18,7 @@ const IconButton: FC<ComponentProps<'button'> & Props> = ({className, iconId, ch
   });
 
   return (
-    <Button className={btnClassName} {...props}>
+    <Button type="button" className={btnClassName} {...props}>
       {children}
       <Icon iconId={iconId} />
     </Button>

@@ -1,14 +1,14 @@
-import React, { FC, ComponentProps } from 'react';
+import React from 'react';
 import './text-button.scss';
 
 import conditionalClassName from '../../../utils/conditional-classname';
-import Button from '../button';
+import Button, {Props as ButtonProps} from '../button';
 
-type Props = {
+type Props = ButtonProps & {
   children: string
 }
 
-const TextButton: FC<ComponentProps<'button'> & Props> = ({className, ...props}) => {
+const TextButton = ({className, ...props}: Props) => {
   const btnClassName = conditionalClassName({
     staticClassName: 'text-btn',
     conditionalClassNames: {

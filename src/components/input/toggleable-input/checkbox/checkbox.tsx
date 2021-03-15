@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import './checkbox.scss';
 
 import ToggleableInput, { Props as InputProps } from '../toggleable-input';
 import Icon from '../../../icon/icon';
 
 type Props = Omit<InputProps, 'type' | 'inputClassName' | 'labelClassName'> & {
-  children: string
+  children: ReactNode
 };
 
 const Checkbox = ({ children, ...props }: Props) => {

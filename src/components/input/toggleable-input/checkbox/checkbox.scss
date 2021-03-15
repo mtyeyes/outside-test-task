@@ -13,7 +13,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    transition: $animation-speed $animation-timing;
+    transition: $transition;
 }
 
 .checkbox__label::before {
@@ -28,7 +28,7 @@
     box-sizing: border-box;
     border-radius: 0.375rem;
     transform: translateY(-50%);
-    transition: $animation-speed $animation-timing
+    transition: $transition;
 }
 
 .checkbox:focus + .checkbox__label::before,
@@ -69,10 +69,10 @@
     top: 50%;
     left: 0.15rem;
     text-indent: 0;
-    width: 0.75rem;
-    height: 0.75rem;
-    font-size: 0.75rem;
-    line-height: 0.75rem;
+    width: 0.875rem;
+    height: 0.875rem;
+    font-size: 0.875rem;
+    line-height: 0.875rem;
     text-align: center;
     color: $bright-font-color;
     transform: translateY(-50%);

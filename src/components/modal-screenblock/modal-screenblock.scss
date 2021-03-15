@@ -1,0 +1,20 @@
+@import '../../variables.scss';
+.modal-screenblock {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    visibility: hidden;
+    opacity: 0;
+    background-color: $screenblock-color;
+    overflow: hidden;
+    transition-property: all, visibility, opacity;
+    transition-duration: 0ms, $animation-speed, $animation-speed;
+    transition-timing-function: $animation-timing;
+}
+
+.modal-screenblock--show {
+    visibility: visible;
+    opacity: 1;
+}

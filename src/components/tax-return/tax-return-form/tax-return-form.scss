@@ -1,0 +1,51 @@
+@import '../../../variables.scss';
+.tax-return-form__fieldset-bug-workaround {
+    margin-top: 1.5rem
+}
+
+.tax-return-form__tags-list {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    margin-top: 0.5rem;
+}
+
+.tax-return-form__payment-item {
+    border-bottom: 1px solid $border-color;
+}
+
+.tax-return-form {
+    margin-bottom: 2.5rem;
+}
+@media (min-width: $media-tablet-screen-width) {
+    .tax-return-form__fieldset-bug-workaround {
+        display: grid;
+        grid-template-areas: 'legend tags';
+        grid-template-columns: auto 1fr;
+    }
+
+    .tax-return-form__fieldset-bug-workaround fieldset {
+        display: contents;
+    }
+
+    .tax-return-form__fieldset-bug-workaround legend{
+        position: relative;
+        grid-area: legend;
+        padding: 0;
+        margin: 0;
+        align-self: center;
+    }
+
+    .tax-return-form__fieldset-bug-workaround {
+        margin-top: 1.25rem;
+    }
+
+    .tax-return-form__tags-list {
+        grid-area: tags;
+        padding: 0 2rem;
+    }
+
+    .tax-return-form__tags-list {
+        margin-top: 0;
+    }
+}

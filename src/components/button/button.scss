@@ -1,4 +1,5 @@
-button {
+button,
+a {
     padding: 0;
     border: none;
     outline: none;
@@ -7,6 +8,7 @@ button {
     background: none;
     display: block;
     touch-action: manipulation;
+    text-decoration: inherit;
     will-change: transform;
 }
 

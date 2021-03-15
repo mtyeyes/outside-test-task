@@ -1,0 +1,19 @@
+@import '../../variables.scss';
+.two-tone-text {
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    transition: $transition;
+}
+
+.two-tone-text--secondary-color {
+    color: $secondary-font-color;
+}
+
+*:active > .two-tone-text--main-color > .two-tone-text--secondary-color,
+.two-tone-text--highlighted {
+    color: inherit;
+}
