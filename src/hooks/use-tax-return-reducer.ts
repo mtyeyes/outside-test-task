@@ -45,9 +45,9 @@ const taxReducer = (state: TaxReturnState, action: TaxReturnAction): TaxReturnSt
     case 'selectTaxReturnPayout': {
       const {index, isSelected} = action.payload;
       if(state.taxReturnPayouts[index] !== undefined) {
-        const newTaxReturnPayoutsState = {...state.taxReturnPayouts};
+        const newTaxReturnPayoutsState = [...state.taxReturnPayouts];
         newTaxReturnPayoutsState[index].isSelected = isSelected;
-        return {...state, ...newTaxReturnPayoutsState};
+        return {...state, taxReturnPayouts: newTaxReturnPayoutsState};
       } else {
         return state;
       }
