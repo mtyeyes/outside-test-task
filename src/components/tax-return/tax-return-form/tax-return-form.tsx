@@ -55,7 +55,7 @@ const TaxReturnForm = ({ onFormSubmit, className }: Props) => {
     const { amount, isSelected, isReceived } = payout;
     const checkboxLabel = isReceived ?
       [
-        `в${relevantEndingsToNumeralValues(i + 1, 'preposition')} ${i + 1}-${relevantEndingsToNumeralValues(i + 1, 'years')} год возвращенно ${amount.toLocaleString('ru-RU')} рубл${relevantEndingsToNumeralValues(amount, 'rubles')}. `,
+        `в${relevantEndingsToNumeralValues(i + 1, 'preposition')} ${i + 1}-${relevantEndingsToNumeralValues(i + 1, 'years')} год возвращено ${amount.toLocaleString('ru-RU')} рубл${relevantEndingsToNumeralValues(amount, 'rubles')}. `,
         `${(payout.isReceived && payout.receivedFor === 'time') ? 'Снижен срок' : 'Снижен платеж'}`
       ] :
       [
