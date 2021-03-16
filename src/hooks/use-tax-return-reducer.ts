@@ -1,5 +1,7 @@
 import { useReducer } from 'react';
 
+type UseTaxReturnReducer = () => [TaxReturnState, React.Dispatch<TaxReturnAction>, RefreshTaxReturnPayouts];
+
 export type TaxReturnState = {
   incomePerMonth: number | undefined,
   payoutPriority: PayoutPriority,
@@ -16,16 +18,29 @@ export type PayoutPriority = {
 
 export type TaxReturnPayouts = TaxReturnPayout[]
 
-export type TaxReturnPayout = {
+export type TaxReturnPayout = PossibleTaxReturnPayout | ReceivedTaxReturnPayout | null;
+
+export type PossibleTaxReturnPayout = {
   amount: number,
   isSelected: boolean,
+  isReceived: false,
+}
+
+export type ReceivedTaxReturnPayout = {
+  amount: number,
+  isSelected: boolean,
+  isReceived: true,
+  receivedFor: string
 }
 
 type TaxReturnAction = { type: 'setIncomePerMonth', payload: number }
   | { type: 'selectPayoutPriority', payload: string }
   | { type: 'selectTaxReturnPayout', payload: { index: number, isSelected: boolean } }
+  | { type: 'receiveSelectedTaxReturnPayout' }
   | { type: 'setTaxReturnPayouts', payload: TaxReturnPayouts }
   | { type: 'setRealEstateValue', payload: number }
+
+type RefreshTaxReturnPayouts = () => void
 
 
 const taxReducer = (state: TaxReturnState, action: TaxReturnAction): TaxReturnState => {
@@ -44,13 +59,33 @@ const taxReducer = (state: TaxReturnState, action: TaxReturnAction): TaxReturnSt
     }
     case 'selectTaxReturnPayout': {
       const {index, isSelected} = action.payload;
-      if(state.taxReturnPayouts[index] !== undefined) {
+      if(state.taxReturnPayouts[index]) {
         const newTaxReturnPayoutsState = [...state.taxReturnPayouts];
-        newTaxReturnPayoutsState[index].isSelected = isSelected;
+        newTaxReturnPayoutsState[index]!.isSelected = isSelected;
         return {...state, taxReturnPayouts: newTaxReturnPayoutsState};
       } else {
         return state;
       }
+    }
+    case 'receiveSelectedTaxReturnPayout': {
+      const selectedPayoutPriority = Object.keys(state.payoutPriority).find(key => state.payoutPriority[key].isSelected === true);
+      const newTaxReturnPayoutsState = [...state.taxReturnPayouts].map(payout => {
+        switch(true) {
+          case(payout === null): {return null}
+          case(payout?.isReceived): return payout;
+          case(payout?.isSelected === false): return payout;
+          case(payout?.isSelected === true && payout?.isReceived === false): {
+            return {
+              amount: payout!.amount,
+              isSelected: true,
+              isReceived: true,
+              receivedFor: selectedPayoutPriority!
+            };
+          }
+          default: return null;
+        }
+      });
+      return {...state, taxReturnPayouts: newTaxReturnPayoutsState};
     }
     case 'setTaxReturnPayouts': {
       return {...state, taxReturnPayouts: action.payload};
@@ -78,9 +113,11 @@ const initialTaxReturnState: TaxReturnState = {
   realEstateValue: 2_000_000
 };
 
-const countTaxReturnPayouts = (incomePerMonth: number, realEstateValue: number): number[] => {
+const countTaxReturnPayouts = (incomePerMonth: number, realEstateValue: number, receivedPayouts: number): number[] => {
   const taxReturnPayoutPerYear = (incomePerMonth * 12) * 0.13;
-  const maxReturnAmount = realEstateValue > 2_000_000 ? 260_000 : realEstateValue * 0.13;
+  const maxReturnAmount = (realEstateValue > 2_000_000 ? 260_000 : realEstateValue * 0.13) - receivedPayouts;
+
+  if(maxReturnAmount <= 0) { return [] }
 
   if (taxReturnPayoutPerYear >= maxReturnAmount) {
     return [maxReturnAmount];
@@ -89,24 +126,38 @@ const countTaxReturnPayouts = (incomePerMonth: number, realEstateValue: number):
   }
 };
 
-const useTaxReturnReducer = () => {
+const useTaxReturnReducer: UseTaxReturnReducer = () => {
   const [taxReturnState, dispatch] = useReducer(taxReducer, initialTaxReturnState);
 
   const refreshTaxReturnPayouts = () => {
     if(taxReturnState.incomePerMonth === undefined) { return }
-    const paymentsArray = countTaxReturnPayouts(taxReturnState.incomePerMonth, taxReturnState.realEstateValue);
 
-    const newTaxReturnPayouts = paymentsArray.map(payment => {
-      return {
-        amount: payment,
-        isSelected: taxReturnState.payoutPriority.time?.isSelected,
-      };
-    });
+    const receivedPayouts = taxReturnState.taxReturnPayouts.reduce((acc, curPayout) => (curPayout?.isReceived) ? acc + curPayout.amount : acc, 0);
+    const paymentsIntoTaxReturnPayouts = (payment: number) => { return {amount: payment, isSelected: false, isReceived: false} as const};
+    const paymentsArray = countTaxReturnPayouts(taxReturnState.incomePerMonth, taxReturnState.realEstateValue, receivedPayouts).map(paymentsIntoTaxReturnPayouts);
+    const oldTaxReturnPayouts = [...taxReturnState.taxReturnPayouts];
+    const newTaxReturnPayouts = [] as TaxReturnPayouts;
+
+    while(paymentsArray.length !== 0 || oldTaxReturnPayouts.find(payout => payout?.isReceived === true)) {
+      const i = newTaxReturnPayouts.length;
+      switch(true) {
+        case(oldTaxReturnPayouts[i]?.isReceived === true): {
+          newTaxReturnPayouts.push(oldTaxReturnPayouts[i]);
+          oldTaxReturnPayouts[i] = null;
+          break;
+        }
+        case(paymentsArray.length > 0): {
+          newTaxReturnPayouts.push(paymentsArray.shift()!);
+          break;
+        }
+        default: newTaxReturnPayouts.push(null);
+      }
+    }
 
     dispatch({type: 'setTaxReturnPayouts', payload: newTaxReturnPayouts});
   };
 
-  return [taxReturnState, dispatch, refreshTaxReturnPayouts] as [TaxReturnState, React.Dispatch<TaxReturnAction>, typeof refreshTaxReturnPayouts];
+  return [taxReturnState, dispatch, refreshTaxReturnPayouts];
 };
 
 export default useTaxReturnReducer;

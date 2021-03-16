@@ -21,7 +21,7 @@ const Home = () => {
         children={({ match }) => {
           return (
             <ModalWindow closeModal={history.goBack} isOpen={Boolean(match)}>
-              <TaxReturn closeModal={history.goBack} />
+              <TaxReturn />
             </ModalWindow>
           );
         }}

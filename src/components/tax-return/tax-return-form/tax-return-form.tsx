@@ -49,18 +49,32 @@ const TaxReturnForm = ({ onFormSubmit, className }: Props) => {
     );
   };
 
-  const taxReturnPayoutsMapCallback = ({ amount, isSelected }: TaxReturnPayout, i: number) => {
+  const taxReturnPayoutsMapCallback = (payout: TaxReturnPayout, i: number) => {
+    if(payout === null) { return null }
+
+    const { amount, isSelected, isReceived } = payout;
+    const checkboxLabel = isReceived ?
+      [
+        `в${relevantEndingsToNumeralValues(i + 1, 'preposition')} ${i + 1}-${relevantEndingsToNumeralValues(i + 1, 'years')} год возвращенно ${amount.toLocaleString('ru-RU')} рубл${relevantEndingsToNumeralValues(amount, 'rubles')}. `,
+        `${(payout.isReceived && payout.receivedFor === 'time') ? 'Снижен срок' : 'Снижен платеж'}`
+      ] :
+      [
+        `${amount.toLocaleString('ru-RU')} рубл${relevantEndingsToNumeralValues(amount, 'rubles')} `,
+        `в${relevantEndingsToNumeralValues(i + 1, 'preposition')} ${i + 1}-${relevantEndingsToNumeralValues(i + 1, 'years')} год`
+      ];
+
     return(
       <li className="tax-return-form__payment-item" key={i}>
         <Checkbox
           id={`${i}`}
           groupName="payment"
           isChecked={isSelected}
+          isDisabled={isReceived}
           onChange={(isChecked) => dispatch({type: 'selectTaxReturnPayout', payload: { index: i, isSelected: isChecked}})}
         >
           <TwoToneText
-            mainText={`${amount.toLocaleString('ru-RU')} рубл${relevantEndingsToNumeralValues(amount, 'rubles')} `}
-            secondaryText={`в${relevantEndingsToNumeralValues(i + 1, 'preposition')} ${i + 1}-${relevantEndingsToNumeralValues(i + 1, 'years')} год`}
+            mainText={checkboxLabel[0]}
+            secondaryText={checkboxLabel[1]}
           />
         </Checkbox>
       </li>
@@ -94,10 +108,9 @@ const TaxReturnForm = ({ onFormSubmit, className }: Props) => {
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    if(onFormSubmit !== undefined) {
-      e.preventDefault();
-      onFormSubmit(taxReturnState);
-    }
+    e.preventDefault();
+    dispatch({type: 'receiveSelectedTaxReturnPayout'});
+    if(onFormSubmit !== undefined) {onFormSubmit(taxReturnState)}
   };
 
   return (
