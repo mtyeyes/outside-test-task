@@ -1,0 +1,38 @@
+@import '../../../../variables.scss';
+.payout-priority-list__fieldset-bug-workaround {
+    margin-top: 1.5rem;
+}
+
+.payout-priority-list {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    margin-top: 0.5rem;
+}
+
+@media (min-width: $media-tablet-screen-width) {
+    .payout-priority-list__fieldset-bug-workaround {
+        display: grid;
+        grid-template-areas: 'legend tags';
+        grid-template-columns: auto 1fr;
+        margin-top: 1.25rem;
+    }
+
+    .payout-priority-list__fieldset-bug-workaround fieldset {
+        display: contents;
+    }
+
+    .payout-priority-list__fieldset-bug-workaround legend {
+        position: relative;
+        grid-area: legend;
+        padding: 0;
+        margin: 0;
+        align-self: center;
+    }
+
+    .payout-priority-list {
+        grid-area: tags;
+        padding: 0 2rem;
+        margin-top: 0;
+    }
+}

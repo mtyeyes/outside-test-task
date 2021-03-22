@@ -7,17 +7,17 @@ import IconButton from '../button/icon-button/icon-button';
 import HiddenText from '../hidden-text/hidden-text';
 
 type Props = {
-  isOpen: boolean,
-  closeModal: () => void,
-  children: ReactNode
-}
+  isOpen: boolean;
+  closeModal: () => void;
+  children: ReactNode;
+};
 
 const ModalWindow = ({ isOpen, closeModal, children }: Props) => {
   const wrapperClassName = conditionalClassName({
     staticClassName: 'modal-window',
     conditionalClassNames: {
-      'modal-window--open': isOpen
-    }
+      'modal-window--open': isOpen,
+    },
   });
 
   return (

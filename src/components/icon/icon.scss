@@ -1,13 +1,14 @@
 @font-face {
     font-weight: normal;
-    font-family: "icomoon";
+    font-family: 'icomoon';
     font-style: normal;
     font-display: swap;
-    src: url("../../resources/fonts/icomoon.woff2") format("woff2");
+    src: url('../../resources/fonts/icomoon.woff2') format('woff2');
 }
 
-[class^="icon-"]::before, [class*=" icon-"]::before {
-    font-family: "icomoon";
+[class^='icon-']::before,
+[class*=' icon-']::before {
+    font-family: 'icomoon';
     font-style: normal;
     font-weight: normal;
     display: inline-block;
@@ -24,9 +25,9 @@
 }
 
 .icon-close:before {
-    content: "\e900";
+    content: '\e900';
 }
 
 .icon-checkmark:before {
-    content: "\e901";
+    content: '\e901';
 }

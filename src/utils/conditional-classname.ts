@@ -1,18 +1,28 @@
 type ConditionalClassNameAttributes = {
-  staticClassName?: string ,
+  staticClassName?: string;
   conditionalClassNames: {
-    [key: string]: boolean
-  }
-}
+    [key: string]: boolean;
+  };
+};
 
-const conditionalClassName = ({staticClassName, conditionalClassNames}: ConditionalClassNameAttributes) => {
-  if(staticClassName === undefined) { staticClassName = '' }
+const conditionalClassName = ({ staticClassName, conditionalClassNames }: ConditionalClassNameAttributes) => {
+  if (staticClassName === undefined) {
+    staticClassName = '';
+  }
 
   const resultingClassName = Object.entries(conditionalClassNames).reduce((acc, [className, conditional]) => {
-    if(conditional === true && className !== '') { return `${acc} ${className}` } else { return acc }
+    if (conditional === true && className !== '') {
+      return `${acc} ${className}`;
+    } else {
+      return acc;
+    }
   }, staticClassName);
 
-  if(resultingClassName !== '') { return resultingClassName } else { return undefined }
+  if (resultingClassName === '') {
+    return undefined;
+  }
+
+  return resultingClassName;
 };
 
 export default conditionalClassName;

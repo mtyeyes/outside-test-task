@@ -2,9 +2,9 @@ import React, { ReactNode } from 'react';
 import './fieldset.scss';
 
 type Props = {
-  children: ReactNode,
-  legend?: string,
-}
+  children: ReactNode;
+  legend?: string;
+};
 
 const Fieldset = ({ legend, children }: Props) => {
   return (

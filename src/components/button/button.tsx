@@ -7,17 +7,23 @@ export type Props = ButtonAsButtonProps | ButtonAsLinkProps;
 
 type ButtonAsButtonProps = ButtonAsButton & ComponentProps<'button'>;
 
-type ButtonAsButton = {component?: 'button'};
+type ButtonAsButton = { component?: 'button' };
 
 type ButtonAsLinkProps = ButtonAsLink & ComponentProps<'a'>;
 
-type ButtonAsLink = {component: 'link', to: string};
+type ButtonAsLink = {
+  component: 'link';
+  to: string;
+};
 
 const Button = ({ component, ...props }: Props) => {
-  switch(component) {
-    case 'link': return <Link {...props as ComponentProps<Link>} />;
+  switch (component) {
+    case 'link':
+      return <Link {...(props as ComponentProps<Link>)} />;
     default: {
-      const {type ,...buttonProps} = {...props as ComponentProps<'button'>};
+      const { type, ...buttonProps } = {
+        ...(props as ComponentProps<'button'>),
+      };
       return <button type={type === undefined ? 'button' : type} {...buttonProps} />;
     }
   }

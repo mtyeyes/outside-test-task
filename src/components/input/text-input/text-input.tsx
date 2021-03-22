@@ -2,26 +2,37 @@ import React, { ChangeEvent } from 'react';
 import './text-input.scss';
 
 type Props = {
-  value: string,
-  valueType: ValueType,
-  onChange: (inputValue: string) => void,
-  inputId: string,
-  isDisabled?: boolean,
-  isRequired?: boolean
-  placeholderText?: string,
-  children: string
-}
+  value: string;
+  valueType: ValueType;
+  onChange: (inputValue: string) => void;
+  inputId: string;
+  isDisabled?: boolean;
+  isRequired?: boolean;
+  placeholderText?: string;
+  children: string;
+};
 
 type ValueType = 'text' | 'number';
 
 const getPattern = (valueType: ValueType) => {
-  switch(valueType) {
-    case('text'): return '^[A-Za-zА-Яа-яЁё]+$';
-    case('number'): return '[0-9]+';
+  switch (valueType) {
+    case 'text':
+      return '^[A-Za-zА-Яа-яЁё]+$';
+    case 'number':
+      return '[0-9]+';
   }
 };
 
-const TextInput = ({ value, valueType, placeholderText, inputId, onChange, isDisabled = false, isRequired = false, children }: Props) => {
+const TextInput = ({
+  value,
+  valueType,
+  placeholderText,
+  inputId,
+  onChange,
+  isDisabled = false,
+  isRequired = false,
+  children,
+}: Props) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
   };

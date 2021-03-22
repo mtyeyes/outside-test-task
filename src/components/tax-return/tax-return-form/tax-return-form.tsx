@@ -3,19 +3,16 @@ import './tax-return-form.scss';
 
 import TextButton from '../../button/text-button/text-button';
 import TextInput from '../../input/text-input/text-input';
-import Tag from '../../input/toggleable-input/tag/tag';
-import Fieldset from '../../fieldset/fieldset';
 import ButtonWithBackground from '../../button/button-with-background/button-with-background';
-import Checkbox from '../../input/toggleable-input/checkbox/checkbox';
-import TwoToneText from '../../two-tone-text/two-tone-text';
 import conditionalClassName from '../../../utils/conditional-classname';
-import useTaxReturnReducer, { TaxReturnPayout, TaxReturnState } from '../../../hooks/use-tax-return-reducer';
-import relevantEndingsToNumeralValues from '../../../utils/relevant-endings-to-numeral-values';
+import useTaxReturnReducer, { TaxReturnState } from '../../../hooks/use-tax-return-reducer';
+import PayoutsList from './payouts-list/payouts-list';
+import PayoutPriorityList from './payout-priority-list/payout-priority-list';
 
 type Props = {
-  onFormSubmit?: (formData: TaxReturnState) => void,
-  className?: string,
-}
+  onFormSubmit?: (formData: TaxReturnState) => void;
+  className?: string;
+};
 
 const TaxReturnForm = ({ onFormSubmit, className }: Props) => {
   const [taxReturnState, dispatch, refreshTaxReturnPayouts] = useTaxReturnReducer();
@@ -23,119 +20,63 @@ const TaxReturnForm = ({ onFormSubmit, className }: Props) => {
   const formClass = conditionalClassName({
     staticClassName: 'tax-return-form',
     conditionalClassNames: {
-      [className || '']: className !== undefined
-    }
+      [className || '']: className !== undefined,
+    },
   });
 
   const buttonClass = conditionalClassName({
     staticClassName: 'tax-return-form__submit-btn',
     conditionalClassNames: {
-      [`${className}__submit-btn`]: className !== undefined
-    }
+      [`${className}__submit-btn`]: className !== undefined,
+    },
   });
-
-  const payoutPriorityMapCallback = (id: string) => {
-    return(
-      <li className="tax-return-form__tags-item" key={id}>
-        <Tag
-          groupName="payoutPriority"
-          id={id}
-          isChecked={taxReturnState.payoutPriority[id].isSelected}
-          onChange={() => dispatch({ type: 'selectPayoutPriority', payload: id })}
-        >
-          {taxReturnState.payoutPriority[id].name}
-        </Tag>
-      </li>
-    );
-  };
-
-  const taxReturnPayoutsMapCallback = (payout: TaxReturnPayout, i: number) => {
-    if(payout === null) { return null }
-
-    const { amount, isSelected, isReceived } = payout;
-    const checkboxLabel = isReceived ?
-      [
-        `в${relevantEndingsToNumeralValues(i + 1, 'preposition')} ${i + 1}-${relevantEndingsToNumeralValues(i + 1, 'years')} год возвращено ${amount.toLocaleString('ru-RU')} рубл${relevantEndingsToNumeralValues(amount, 'rubles')}. `,
-        `${(payout.isReceived && payout.receivedFor === 'time') ? 'Снижен срок' : 'Снижен платеж'}`
-      ] :
-      [
-        `${amount.toLocaleString('ru-RU')} рубл${relevantEndingsToNumeralValues(amount, 'rubles')} `,
-        `в${relevantEndingsToNumeralValues(i + 1, 'preposition')} ${i + 1}-${relevantEndingsToNumeralValues(i + 1, 'years')} год`
-      ];
-
-    return(
-      <li className="tax-return-form__payment-item" key={i}>
-        <Checkbox
-          id={`${i}`}
-          groupName="payment"
-          isChecked={isSelected}
-          isDisabled={isReceived}
-          onChange={(isChecked) => dispatch({type: 'selectTaxReturnPayout', payload: { index: i, isSelected: isChecked}})}
-        >
-          <TwoToneText
-            mainText={checkboxLabel[0]}
-            secondaryText={checkboxLabel[1]}
-          />
-        </Checkbox>
-      </li>
-    );
-  };
-
-  const renderTaxReturnPayouts = () => {
-    const payoutNumbers = taxReturnState.taxReturnPayouts.length;
-    switch(true) {
-      case (payoutNumbers > 10): {
-        return (
-          <Fieldset legend="Итого можете внести в качестве досрочных:">
-            <ul className="tax-return-form__payment-list">
-              {taxReturnState.taxReturnPayouts.slice(0, 10).map(taxReturnPayoutsMapCallback)}
-              <p>Отображены возвраты за первые 10 лет</p>
-            </ul>
-          </Fieldset>
-        );
-      }
-      case(payoutNumbers >= 1): {
-        return (
-          <Fieldset legend="Итого можете внести в качестве досрочных:">
-            <ul className="tax-return-form__payment-list">
-              {taxReturnState.taxReturnPayouts.map(taxReturnPayoutsMapCallback)}
-            </ul>
-          </Fieldset>
-        );
-      }
-      default: return null;
-    }
-  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch({type: 'receiveSelectedTaxReturnPayout'});
-    if(onFormSubmit !== undefined) {onFormSubmit(taxReturnState)}
+    dispatch({
+      type: 'receiveSelectedTaxReturnPayout',
+    });
+    if (onFormSubmit !== undefined) {
+      onFormSubmit(taxReturnState);
+    }
   };
 
   return (
     <>
       <form className={formClass} id="tax-return-form" onSubmit={handleSubmit}>
         <TextInput
-          value={taxReturnState.incomePerMonth !== undefined && !isNaN(taxReturnState.incomePerMonth) ? `${taxReturnState.incomePerMonth}` : ''}
+          value={
+            taxReturnState.incomePerMonth !== undefined && !isNaN(taxReturnState.incomePerMonth)
+              ? `${taxReturnState.incomePerMonth}`
+              : ''
+          }
           valueType="number"
           inputId="incomePerMonth"
           placeholderText="Введите данные"
-          onChange={(value) => {dispatch({type: 'setIncomePerMonth', payload: parseInt(value)})}}
+          onChange={(value) => {
+            dispatch({
+              type: 'setIncomePerMonth',
+              payload: parseInt(value),
+            });
+          }}
         >
           Ваша зарплата в месяц
         </TextInput>
         <TextButton onClick={refreshTaxReturnPayouts}>Рассчитать</TextButton>
-        {renderTaxReturnPayouts()}
-        <div className="tax-return-form__fieldset-bug-workaround">
-          <Fieldset legend="Что уменьшаем?">
-            <ul className="tax-return-form__tags-list">
-              {Object.keys(taxReturnState.payoutPriority).map(payoutPriorityMapCallback)}
-            </ul>
-          </Fieldset>
-        </div>
+        {taxReturnState.taxReturnPayouts.length !== 0 && (
+          <PayoutsList payoutsData={taxReturnState.taxReturnPayouts} dispatch={dispatch} />
+        )}
+        <PayoutPriorityList payoutPriority={taxReturnState.payoutPriority} dispatch={dispatch} />
       </form>
-      <ButtonWithBackground className={buttonClass} form="tax-return-form" background="colored" type="submit" isFitParent={true}>Добавить</ButtonWithBackground>
+      <ButtonWithBackground
+        className={buttonClass}
+        form="tax-return-form"
+        background="colored"
+        type="submit"
+        isFitParent={true}
+      >
+        Добавить
+      </ButtonWithBackground>
     </>
   );
 };

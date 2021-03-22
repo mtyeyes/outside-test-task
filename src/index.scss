@@ -23,7 +23,7 @@ body {
 }
 
 input {
-    all: unset
+    all: unset;
 }
 
 ul {
@@ -32,15 +32,14 @@ ul {
     padding: 0;
 }
 
-img
-    display block
-
-a {
+img display block a {
     color: inherit;
     text-decoration: inherit;
 }
 
-*, *:focus, *:hover {
+*,
+*:focus,
+*:hover {
     outline: none;
 }
 
@@ -48,5 +47,5 @@ input,
 button,
 input:not(:disabled) + label,
 a {
-    cursor: url('./resources/images/custom-cursor.svg') 8 2,auto;
+    cursor: url('./resources/images/custom-cursor.svg') 8 2, auto;
 }

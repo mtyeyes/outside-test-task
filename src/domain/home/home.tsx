@@ -14,7 +14,14 @@ const Home = () => {
   return (
     <>
       <section className="modal-toggler__wrapper">
-        <ButtonWithBackground component="link" to={modalTaxReturnLink} className="modal-toggler__btn" background="blank">Налоговый вычет</ButtonWithBackground>
+        <ButtonWithBackground
+          component="link"
+          to={modalTaxReturnLink}
+          className="modal-toggler__btn"
+          background="blank"
+        >
+          Налоговый вычет
+        </ButtonWithBackground>
       </section>
       <Route
         path={modalTaxReturnLink}

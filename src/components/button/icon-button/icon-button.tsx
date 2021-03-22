@@ -6,15 +6,15 @@ import Button, { Props as ButtonProps } from '../button';
 import Icon, { IconIds } from '../../icon/icon';
 
 type Props = ButtonProps & {
-  iconId: IconIds
-}
+  iconId: IconIds;
+};
 
-const IconButton = ({className, iconId, children, ...props}: Props) => {
+const IconButton = ({ className, iconId, children, ...props }: Props) => {
   const btnClassName = conditionalClassName({
     staticClassName: 'icon-btn',
     conditionalClassNames: {
-      [className || '']: className !== undefined
-    }
+      [className || '']: className !== undefined,
+    },
   });
 
   return (

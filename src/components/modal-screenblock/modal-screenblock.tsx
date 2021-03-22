@@ -4,28 +4,36 @@ import './modal-screenblock.scss';
 import conditionalClassName from '../../utils/conditional-classname';
 
 type Props = {
-  isOpen: boolean,
-  closeModal: () => void
-}
+  isOpen: boolean;
+  closeModal: () => void;
+};
 
 type EventKeyup = {
-  key: string,
-}
+  key: string;
+};
 
 const ModalScreenblock = ({ isOpen, closeModal }: Props) => {
   const screenblock = useRef<HTMLDivElement>(null);
   const screenblockClass = conditionalClassName({
     staticClassName: 'modal-screenblock',
     conditionalClassNames: {
-      'modal-screenblock--show': isOpen
-    }
+      'modal-screenblock--show': isOpen,
+    },
   });
 
-  const closeModalByClick = (e: React.MouseEvent<HTMLDivElement>) => { if (e.target === screenblock.current) { closeModal() } };
-  const closeModalByEsc = (e: EventKeyup) => { if (e.key === 'Escape') { closeModal() } };
+  const closeModalByClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === screenblock.current) {
+      closeModal();
+    }
+  };
+  const closeModalByEsc = (e: EventKeyup) => {
+    if (e.key === 'Escape') {
+      closeModal();
+    }
+  };
 
-  useEffect(()=>{
-    if(isOpen) {
+  useEffect(() => {
+    if (isOpen) {
       document.addEventListener('keyup', closeModalByEsc);
     }
     return () => {
